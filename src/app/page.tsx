@@ -1,170 +1,211 @@
-'use client';
-
 import React from 'react';
-import { tests, users, testResults } from '@/data/mockData';
-import { Card, CardHeader, CardContent } from '@/components/ui/Card';
-import TestCard from '@/components/TestCard';
-import Badge from '@/components/ui/Badge';
-import Button from '@/components/ui/Button';
-import { formatDate, calculatePercentage } from '@/utils/helpers';
+import Link from 'next/link';
+import { Card, CardContent, CardHeader } from '@/components/ui/Card';
+import {Button} from '@/components/ui/button';
+import { HeroMarquee } from '@/components/marqueeHero';
 
-export default function Dashboard() {
-  // Mock current user (in a real app, this would come from authentication)
-  const currentUser = users[0]; // John Smith, student
-  
-  const userResults = testResults.filter(result => result.userId === currentUser.id);
-  const availableTests = tests.filter(test => test.isActive);
 
+export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Welcome back, {currentUser.name}!</h1>
-          <p className="text-gray-600 mt-2">
-            You're logged in as a {currentUser.role} at {currentUser.school.name}
-          </p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+    
+        <div className="container mx-auto px-4 py-16 lg:py-24">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+              Welcome to <span className="text-blue-600">ExamCenter</span>
+            </h1>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Available Tests</p>
-                  <p className="text-2xl font-bold text-gray-900">{availableTests.length}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            
 
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <div className="p-2 bg-green-100 rounded-lg">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Tests Completed</p>
-                  <p className="text-2xl font-bold text-gray-900">{userResults.length}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <div className="p-2 bg-purple-100 rounded-lg">
-                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                  </svg>
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-600">Average Score</p>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {userResults.length > 0 
-                      ? Math.round(userResults.reduce((acc, result) => acc + result.percentage, 0) / userResults.length)
-                      : 0}%
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Results */}
-        {userResults.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Results</h2>
-            <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Test
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Subject
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Score
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Date
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {userResults.map((result) => {
-                      const test = tests.find(t => t.id === result.testId);
-                      return (
-                        <tr key={result.id}>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm font-medium text-gray-900">{test?.title}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">{test?.subject.name}</div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
-                              {result.score}/{result.totalPoints} ({result.percentage}%)
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <Badge variant={result.passed ? 'success' : 'danger'}>
-                              {result.passed ? 'Passed' : 'Failed'}
-                            </Badge>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {formatDate(result.completedAt)}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+            <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed">
+              Your trusted platform for online assessments. Take your exams with confidence 
+              and showcase your knowledge in a supportive environment.
+            </p>
+            
+            {/* Confidence Boosting Message */}
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-2xl p-6 mb-8">
+              <h2 className="text-2xl font-semibold text-green-800 mb-3">💪 You're Ready for This!</h2>
+              <p className="text-green-700 text-lg mb-4">
+                Remember: Every test is an opportunity to demonstrate your learning and growth. 
+                Trust in your preparation and abilities.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 text-sm text-green-600">
+                <span>✅ You've studied hard</span>
+                <span>✅ You understand the material</span>
+                <span>✅ You can do this</span>
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Available Tests */}
-        <div>
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Available Tests</h2>
-            <Button>
-              View All Tests
-            </Button>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {availableTests.slice(0, 6).map((test) => (
-              <TestCard key={test.id} test={test} />
-            ))}
-          </div>
-          
-          {availableTests.length > 6 && (
-            <div className="text-center mt-8">
-              <Button variant="outline">
-                Load More Tests
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4">
+                <Link href="/tests">
+                  View Available Tests
+                </Link>
+              </Button>
+              <Button variant="outline" className="text-lg px-8 py-4">
+                <Link href="/results">
+                  Check Your Results
+                </Link>
               </Button>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Why Choose ExamCenter?
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">📝</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900">Test Preview</h3>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Preview your tests before starting to understand the format and feel more confident.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">⚡</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900">Instant Results</h3>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Get immediate feedback on your performance with detailed results and explanations.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🛡️</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900">Secure & Reliable</h3>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Your data is protected with industry-standard security measures and reliable infrastructure.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Encouragement Section */}
+      <section className="py-16 bg-gradient-to-r from-indigo-50 to-blue-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              Remember: You're More Than a Test Score
+            </h2>
+            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              Every exam is just one step in your learning journey. Whether you ace it or need to try again, 
+              you're growing and developing valuable skills. Focus on the process, not just the outcome.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">🎯 Before Your Test</h3>
+                <ul className="text-gray-600 space-y-2 text-left">
+                  <li>• Take deep breaths and stay calm</li>
+                  <li>• Read instructions carefully</li>
+                  <li>• Trust your preparation</li>
+                  <li>• Remember: you've got this!</li>
+                </ul>
+              </div>
+              
+              <div className="bg-white rounded-lg p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">🌟 After Your Test</h3>
+                <ul className="text-gray-600 space-y-2 text-left">
+                  <li>• Celebrate your effort</li>
+                  <li>• Review what you learned</li>
+                  <li>• Plan your next steps</li>
+                  <li>• Be proud of yourself</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Actions */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Ready to Get Started?
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <Card className="text-center hover:shadow-lg transition-shadow cursor-pointer">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-xl">📚</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Browse Tests</h3>
+                <p className="text-sm text-gray-600 mb-4">Find available exams in your subjects</p>
+                <Button variant="outline" size="sm" className="w-full">
+                  <Link href="/tests">View Tests</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow cursor-pointer">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-xl">📊</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Check Results</h3>
+                <p className="text-sm text-gray-600 mb-4">Review your past performance</p>
+                <Button variant="outline" size="sm" className="w-full">
+                  <Link href="/results">View Results</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow cursor-pointer">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-xl">🤖</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">AI Practice Tests</h3>
+                <p className="text-sm text-gray-600 mb-4">Generate personalized practice questions</p>
+                <Button variant="outline" size="sm" className="w-full">
+                  <Link href="/practice/ai">Create Test</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow cursor-pointer">
+              <CardContent className="pt-6">
+                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-xl">🆘</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Need Help?</h3>
+                <p className="text-sm text-gray-600 mb-4">Get support when you need it</p>
+                <Button variant="outline" size="sm" className="w-full">
+                  <Link href="/help">Contact Support</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

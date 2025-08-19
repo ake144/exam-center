@@ -49,8 +49,8 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-medium mb-4">Support & Resources</h4>
             <ul className="space-y-2 text-blue-100">
               <li>
-                <Link href="/study-tips" className="hover:text-white transition-colors">
-                  Study Tips
+                <Link href="/practice/ai" className="hover:text-white transition-colors">
+                  AI Practice Tests
                 </Link>
               </li>
               <li>
