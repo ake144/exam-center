@@ -21,11 +21,17 @@ export interface Topic {
   questions: Question[];
 }
 
+export interface Options{
+  id: string;
+  text: string;
+  isCorrect?: boolean;
+}
+
 export interface Question {
   id: string;
   text: string;
   type: 'multiple_choice' | 'true_false' | 'short_answer' | 'essay';
-  options?: string[];
+  options?: Options[];
   correctAnswer: string | string[];
   explanation?: string;
   difficulty: 'easy' | 'medium' | 'hard';
@@ -42,7 +48,7 @@ export interface Test {
   totalPoints: number;
   passingScore: number;
   createdAt: Date;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 export interface User {
