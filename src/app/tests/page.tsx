@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { tests } from '@/data/mockData';
 import TestCard from '@/components/TestCard';
 import { Card, CardContent } from '@/components/ui/Card';
-import {Button} from '@/components/ui/button';
+import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 
 export default function TestsPage() {
@@ -148,7 +148,7 @@ export default function TestsPage() {
                 <span className="text-sm text-gray-500">Active filters:</span>
                 {searchTerm && (
                   <Badge variant="info" size="sm">
-                    Search: "{searchTerm}"
+                    Search: &ldquo;{searchTerm}&rdquo;
                   </Badge>
                 )}
                 {selectedSubject && (

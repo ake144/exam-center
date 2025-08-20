@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
         <div className="mt-8 pt-8 border-t border-blue-700">
           <div className="text-center">
             <blockquote className="text-lg italic text-blue-100 mb-2">
-              "Success is not final, failure is not fatal: it is the courage to continue that counts."
+              &ldquo;Success is not final, failure is not fatal: it is the courage to continue that counts.&rdquo;
             </blockquote>
             <p className="text-sm text-blue-200">- Winston Churchill</p>
           </div>

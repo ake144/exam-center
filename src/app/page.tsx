@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
-import {Button} from '@/components/ui/button';
+import Button from '@/components/ui/Button';
+import DashboardDemo from '@/components/dashboardDemo';
 
 export default function Home() {
   return (
@@ -51,6 +52,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <DashboardDemo />
 
       {/* Features Section */}
       <section className="py-16 bg-white">

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
-import { Button } from '@/components/ui/button';
+import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 
 interface QuizQuestion {

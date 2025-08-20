@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Question } from '@/types';
+import { Question, Options } from '@/types';
 import { getDifficultyColor } from '@/utils/helpers';
 import Badge from './ui/Badge';
 
@@ -36,91 +36,113 @@ const QuestionDisplay: React.FC<QuestionDisplayProps> = ({
     return question.correctAnswer === answer;
   };
 
+  const getOptionText = (option: Options | string): string => {
+    if (typeof option === 'string') {
+      return option;
+    }
+    return option.text;
+  };
+
+  const getOptionId = (option: Options | string): string => {
+    if (typeof option === 'string') {
+      return option;
+    }
+    return option.id;
+  };
+
   const renderQuestionContent = () => {
     switch (question.type) {
       case 'multiple_choice':
         return (
           <div className="space-y-3">
-            {question.options?.map((option, index) => (
-              <label
-                key={index}
-                className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
-                  selectedAnswer === option
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
-                } ${
-                  showCorrectAnswer
-                    ? isCorrect(option)
-                      ? 'border-green-500 bg-green-50'
-                      : selectedAnswer === option && !isCorrect(option)
-                      ? 'border-red-500 bg-red-50'
+            {question.options?.map((option, index) => {
+              const optionText = getOptionText(option);
+              const optionId = getOptionId(option);
+              return (
+                <label
+                  key={index}
+                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                    selectedAnswer === optionId
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  } ${
+                    showCorrectAnswer
+                      ? isCorrect(optionId)
+                        ? 'border-green-500 bg-green-50'
+                        : selectedAnswer === optionId && !isCorrect(optionId)
+                        ? 'border-red-500 bg-red-50'
+                        : ''
                       : ''
-                    : ''
-                }`}
-              >
-                <input
-                  type="radio"
-                  name={`question-${question.id}`}
-                  value={option}
-                  checked={selectedAnswer === option}
-                  onChange={(e) => handleAnswerChange(e.target.value)}
-                  disabled={disabled}
-                  className="mr-3"
-                />
-                <span className="flex-1">{option}</span>
-                {showCorrectAnswer && (
-                  <Badge
-                    variant={isCorrect(option) ? 'success' : selectedAnswer === option ? 'danger' : 'default'}
-                    size="sm"
-                  >
-                    {isCorrect(option) ? 'Correct' : selectedAnswer === option ? 'Incorrect' : ''}
-                  </Badge>
-                )}
-              </label>
-            ))}
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name={`question-${question.id}`}
+                    value={optionId}
+                    checked={selectedAnswer === optionId}
+                    onChange={(e) => handleAnswerChange(e.target.value)}
+                    disabled={disabled}
+                    className="mr-3"
+                  />
+                  <span className="flex-1">{optionText}</span>
+                  {showCorrectAnswer && (
+                    <Badge
+                      variant={isCorrect(optionId) ? 'success' : selectedAnswer === optionId ? 'danger' : 'default'}
+                      size="sm"
+                    >
+                      {isCorrect(optionId) ? 'Correct' : selectedAnswer === optionId ? 'Incorrect' : ''}
+                    </Badge>
+                  )}
+                </label>
+              );
+            })}
           </div>
         );
 
       case 'true_false':
         return (
           <div className="space-y-3">
-            {question.options?.map((option, index) => (
-              <label
-                key={index}
-                className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
-                  selectedAnswer === option
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
-                } ${
-                  showCorrectAnswer
-                    ? isCorrect(option)
-                      ? 'border-green-500 bg-green-50'
-                      : selectedAnswer === option && !isCorrect(option)
-                      ? 'border-red-500 bg-red-50'
+            {question.options?.map((option, index) => {
+              const optionText = getOptionText(option);
+              const optionId = getOptionId(option);
+              return (
+                <label
+                  key={index}
+                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                    selectedAnswer === optionId
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  } ${
+                    showCorrectAnswer
+                      ? isCorrect(optionId)
+                        ? 'border-green-500 bg-green-50'
+                        : selectedAnswer === optionId && !isCorrect(optionId)
+                        ? 'border-red-500 bg-red-50'
+                        : ''
                       : ''
-                    : ''
-                }`}
-              >
-                <input
-                  type="radio"
-                  name={`question-${question.id}`}
-                  value={option}
-                  checked={selectedAnswer === option}
-                  onChange={(e) => handleAnswerChange(e.target.value)}
-                  disabled={disabled}
-                  className="mr-3"
-                />
-                <span className="flex-1">{option}</span>
-                {showCorrectAnswer && (
-                  <Badge
-                    variant={isCorrect(option) ? 'success' : selectedAnswer === option ? 'danger' : 'default'}
-                    size="sm"
-                  >
-                    {isCorrect(option) ? 'Correct' : selectedAnswer === option ? 'Incorrect' : ''}
-                  </Badge>
-                )}
-              </label>
-            ))}
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name={`question-${question.id}`}
+                    value={optionId}
+                    checked={selectedAnswer === optionId}
+                    onChange={(e) => handleAnswerChange(e.target.value)}
+                    disabled={disabled}
+                    className="mr-3"
+                  />
+                  <span className="flex-1">{optionText}</span>
+                  {showCorrectAnswer && (
+                    <Badge
+                      variant={isCorrect(optionId) ? 'success' : selectedAnswer === optionId ? 'danger' : 'default'}
+                      size="sm"
+                    >
+                      {isCorrect(optionId) ? 'Correct' : selectedAnswer === optionId ? 'Incorrect' : ''}
+                    </Badge>
+                  )}
+                </label>
+              );
+            })}
           </div>
         );
 
