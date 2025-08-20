@@ -87,7 +87,7 @@ const TestPreview = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Test Not Found</h1>
-            <p className="text-gray-600 mb-6">The test you're looking for doesn't exist.</p>
+            <p className="text-gray-600 mb-6">The test you&apos;re looking for doesn&apos;t exist.</p>
             <Button onClick={() => router.push('/tests')}>
               Back to Tests
             </Button>
@@ -145,13 +145,13 @@ const TestPreview = () => {
           <Card className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
             <CardContent className="pt-6">
               <div className="text-center">
-                <h3 className="text-lg font-semibold text-blue-900 mb-2">💪 You've Got This!</h3>
+                <h3 className="text-lg font-semibold text-blue-900 mb-2">💪 You&apos;ve Got This!</h3>
                 <p className="text-blue-800 mb-4">
                   Remember: Every question is an opportunity to show what you know. 
                   Take your time, read carefully, and trust your preparation.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4 text-sm text-blue-700">
-                  <span>✅ You're well-prepared</span>
+                  <span>✅ You&apos;re well-prepared</span>
                   <span>✅ Stay calm and focused</span>
                   <span>✅ Trust your instincts</span>
                 </div>

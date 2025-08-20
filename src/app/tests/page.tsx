@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { tests } from '@/data/mockData';
 import TestCard from '@/components/TestCard';
 import { Card, CardContent } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import {Button} from '@/components/ui/button';
 import Badge from '@/components/ui/Badge';
 
 export default function TestsPage() {
@@ -154,7 +154,7 @@ export default function TestsPage() {
                 {selectedSubject && (
                   <Badge variant="info" size="sm">
                     Subject: {selectedSubject}
-                  </Badge>
+                  </Badge>  
                 )}
                 {selectedDifficulty && (
                   <Badge variant="info" size="sm">

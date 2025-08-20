@@ -13,10 +13,10 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-semibold mb-4">🌟 Believe in Yourself</h3>
             <p className="text-blue-100 mb-4 leading-relaxed">
               Every exam is a step forward in your learning journey. Remember that your worth 
-              isn't measured by a single test score. You're capable, you're growing, and you're doing great!
+              isn&apos;t measured by a single test score. You&apos;re capable, you&apos;re growing, and you&apos;re doing great!
             </p>
             <div className="flex flex-wrap gap-4 text-sm text-blue-200">
-              <span>💪 You've got this!</span>
+              <span>💪 You&apos;ve got this!</span>
               <span>📚 Knowledge is power</span>
               <span>🎯 Focus on progress</span>
             </div>

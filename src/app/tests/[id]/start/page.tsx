@@ -361,7 +361,7 @@ export default function TestPage() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 mb-4">
-                Are you sure you want to submit your test? You won't be able to make changes after submission.
+                  Are you sure you want to submit your test? You won&apos;t be able to make changes after submission.
               </p>
               <p className="text-sm text-gray-500 mb-6">
                 Answered: {answeredQuestions} / {test.questions.length} questions

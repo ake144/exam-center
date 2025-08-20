@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import {Button} from '@/components/ui/button';
 import Badge from '@/components/ui/Badge';
 
 interface PracticePreferences {
@@ -73,28 +73,57 @@ const AIPracticeTest = () => {
   };
 
   const generatePracticeTest = async () => {
+    try{
     setIsGenerating(true);
-    
-    // Simulate AI generation delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // In a real app, this would call an AI API
-    const generatedTest = {
-      id: `ai-${Date.now()}`,
-      title: `AI Generated ${preferences.subject} Practice Test`,
-      subject: preferences.subject,
-      topic: preferences.topic,
-      difficulty: preferences.difficulty,
-      questionCount: preferences.questionCount,
-      preferences: preferences
-    };
 
-    // Store in session storage for the test page
-    sessionStorage.setItem('aiPracticeTest', JSON.stringify(generatedTest));
-    
-    setIsGenerating(false);
-    router.push(`/practice/ai/test/${generatedTest.id}`);
+      const response = await fetch('/api/generateQuiz', {
+        method: 'POST',
+        body: JSON.stringify(preferences)
+      });
+
+      const data = await response.json();
+      console.log(data);  
+      setIsGenerating(false);
+      
+      if (data.error) {
+        console.error('Quiz generation failed:', data.error);
+        // You might want to show an error message to the user here
+        return;
+      }
+      
+      // Store the quiz data in session storage for the test page
+      sessionStorage.setItem('aiPracticeTest', JSON.stringify(data.quiz));
+      router.push(`/practice/ai/test/${data.id}`);
+      return;
+    }
+    catch(error){
+      console.error(error);
+      setIsGenerating(false);
+      return;
+    }
   };
+
+    
+  //   // Simulate AI generation delay
+  //   await new Promise(resolve => setTimeout(resolve, 2000));
+    
+  //   // In a real app, this would call an AI API
+  //   const generatedTest = {
+  //     id: `ai-${Date.now()}`,
+  //     title: `AI Generated ${preferences.subject} Practice Test`,
+  //     subject: preferences.subject,
+  //     topic: preferences.topic,
+  //     difficulty: preferences.difficulty,
+  //     questionCount: preferences.questionCount,
+  //     preferences: preferences
+  //   };
+
+  //   // Store in session storage for the test page
+  //   sessionStorage.setItem('aiPracticeTest', JSON.stringify(generatedTest));
+    
+  //   setIsGenerating(false);
+  //   router.push(`/practice/ai/test/${generatedTest.id}`);
+  // };
 
   const selectedSubject = subjects.find(s => s.id === preferences.subject);
 

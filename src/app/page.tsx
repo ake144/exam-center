@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader } from '@/components/ui/Card';
 import {Button} from '@/components/ui/button';
-import { HeroMarquee } from '@/components/marqueeHero';
-
 
 export default function Home() {
   return (
@@ -26,13 +24,13 @@ export default function Home() {
             
             {/* Confidence Boosting Message */}
             <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-2xl p-6 mb-8">
-              <h2 className="text-2xl font-semibold text-green-800 mb-3">💪 You're Ready for This!</h2>
+              <h2 className="text-2xl font-semibold text-green-800 mb-3">💪 You&apos;re Ready for This!</h2>
               <p className="text-green-700 text-lg mb-4">
                 Remember: Every test is an opportunity to demonstrate your learning and growth. 
                 Trust in your preparation and abilities.
               </p>
               <div className="flex flex-wrap justify-center gap-4 text-sm text-green-600">
-                <span>✅ You've studied hard</span>
+                <span>✅ You&apos;ve studied hard</span>
                 <span>✅ You understand the material</span>
                 <span>✅ You can do this</span>
               </div>
@@ -112,11 +110,11 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Remember: You're More Than a Test Score
+              Remember: You&apos;re More Than a Test Score
             </h2>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
               Every exam is just one step in your learning journey. Whether you ace it or need to try again, 
-              you're growing and developing valuable skills. Focus on the process, not just the outcome.
+              you&apos;re growing and developing valuable skills. Focus on the process, not just the outcome.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
@@ -126,7 +124,7 @@ export default function Home() {
                   <li>• Take deep breaths and stay calm</li>
                   <li>• Read instructions carefully</li>
                   <li>• Trust your preparation</li>
-                  <li>• Remember: you've got this!</li>
+                  <li>• Remember: you&apos;ve got this!</li>
                 </ul>
               </div>
               
