@@ -37,7 +37,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 mt-22 justify-center">
               <Button className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4">
                 <Link href="/tests">
                   View Available Tests
