@@ -63,7 +63,7 @@ export default function TestsPage() {
             </div>
             <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
               <Link href="/practice/ai">
-                🤖 Create AI Practice Test
+                🤖 AI Generated Practice Test
               </Link>
             </Button>
           </div>

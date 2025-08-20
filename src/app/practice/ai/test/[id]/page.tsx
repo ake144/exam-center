@@ -38,10 +38,12 @@ const AIPracticeTestPage = () => {
   const [isTestComplete, setIsTestComplete] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showAnswers, setShowAnswers] = useState(false)
 
   useEffect(() => {
     // Load test data from session storage
     const testData = sessionStorage.getItem('aiPracticeTest');
+
     if (testData) {
       const parsedTest = JSON.parse(testData);
       setTest(parsedTest);
@@ -97,6 +99,7 @@ const AIPracticeTestPage = () => {
   const handleCompleteTest = () => {
     setIsTestComplete(true);
     setShowResults(true);
+    setShowAnswers(true);
   };
 
   const formatTime = (seconds: number) => {
@@ -250,6 +253,11 @@ const AIPracticeTestPage = () => {
                     </label>
                   ))}
                 </div>
+               {showAnswers &&<>
+                <p>The correct answer is {String.fromCharCode(65 + currentQuestion.correctAnswer)}.</p>
+                <p className="text-lg text-gray-700 mb-6">{currentQuestion.explanation}</p>
+                </>
+             }
               </div>
             </CardContent>
           </Card>

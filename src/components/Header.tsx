@@ -34,6 +34,9 @@ const Header: React.FC<HeaderProps> = ({ user }) => {
             <Link href="/results" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
               Results
             </Link>
+            <Link href="/practice/ai" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
+              Practice with AI
+            </Link>
             {user?.role === 'teacher' || user?.role === 'admin' ? (
               <Link href="/admin" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
                 Admin

@@ -91,14 +91,14 @@ export default function Home() {
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🛡️</span>
+                  <span className="text-2xl">✅</span>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">Secure & Reliable</h3>
+                <h3 className="text-xl font-semibold text-gray-900">Unlimited AI Generated Practice Tests</h3>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">
-                  Your data is protected with industry-standard security measures and reliable infrastructure.
-                </p>
+                  <p className="text-gray-600">
+                        Practice with AI to improve your skills and knowledge.
+                    </p>
               </CardContent>
             </Card>
           </div>
